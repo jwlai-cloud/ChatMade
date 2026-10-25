@@ -1,5 +1,5 @@
 # ADR 0001 — Local-first bounded generative game
-Status: Proposed; review in the requested grilling session.
+Status: Accepted in part for the deterministic local milestone through ADRs 0002–0004. Twitch and generation details below remain proposed until their milestones are reviewed.
 Date: 2026-10-24
 
 ## Context
@@ -36,8 +36,8 @@ Integration: Twitch adapter reconnect, provider timeout/refusal, host permission
 End to end: three real viewers complete a round; pause/resume and fallback round; record demo capture and keyboard usability.
 
 ## Open decisions
-1. Is helping the streamer after creating the threat compelling, or should viewers choose sides? Default cooperative rescue.
-2. Is survival sufficiently satisfying? Default survival; boss combat would need a separate scope decision.
+1. Cooperative rescue accepted in ADR 0002; fun and viewer motivation still need playtest evidence.
+2. Survival accepted in ADR 0002; boss combat remains outside scope.
 3. Which runtime provider and spend cap? Unresolved, no live spending authorised by this ADR.
 4. Can the app be installed and authenticated by judges easily? Test clean setup.
 5. Full competitor audit and creator validation still required.

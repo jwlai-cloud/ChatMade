@@ -1,8 +1,14 @@
 # Product requirements — ChatMade
 Version 0.1, 24 October 2026. Proposed baseline for grilling and implementation.
 
+Review update: cooperative rescue, 60-second survival with three hearts and no streamer attacks, and local operation alongside OBS were accepted in grilling round 1. See ADR 0002. Remaining details below are still proposed.
+
+Grilling round 2 accepted bounded free-text interpretation, audience selection with host approval, seeded vote tie/no-vote resolution, labelled house suggestions for missing categories, pre-round rescue thresholds and the deterministic first-build scope. See ADR 0003 for exact decisions. Other details remain proposed until review closes.
+
 ## Product and audience
 A Twitch audience invents a monster; the streamer survives an encounter with it; viewers cooperate to activate its weakness. Primary user: a small streamer hosting a short interactive segment. Secondary user: a viewer who can participate with one chat command. No audience size, paid subscription, or Channel Points dependency.
+
+Adoption requirement, clarified by the user on 25 October 2026: the same product must be easy for other streamers to use. Target a reusable local companion with guided Twitch connection and an OBS browser-source URL. A streamer should not need to edit source code, replace hardcoded channel IDs or ask viewers to install another app. The current Node/npm sample build is a developer milestone, not evidence that this onboarding requirement is met. Downloadable packaging and a nontechnical streamer setup test remain release work. A Twitch Extension is a separate delivery option, not an approved replacement for local-first scope.
 
 Hypothesis: visible authorship and playable consequences make viewers feel more involved. This is unvalidated; conduct three creator interviews and a small live playtest. Do not claim retention improvements or unique market originality without evidence.
 
@@ -53,3 +59,6 @@ Discord: https://discord.com/invite/G8UQqNy (#codex-twitchcon-hackathon)
 Participants: https://twitchcon-codex.devpost.com/participants
 Submission: https://devpost.com/submit-to/31742-codex-x-twitchcon-hackathon/manage/submissions
 Judging: innovation, impact, implementation/Codex and design equally weighted. These are evidence goals, not guarantees of scoring. Direction: audience participation primary, content enhancement secondary.
+
+## Review closure — 24 October 2026
+Q8–Q10 accepted; first-milestone review is closed (ADR 0004). The deterministic local build is authorised. Live Twitch playtests, runtime generation, paid calls, public hosting and submission have not been completed or authorised by this milestone's acceptance.
