@@ -68,5 +68,6 @@ Tests cover the core loop, deterministic attacks, moderation/privacy, malformed 
 - [Product requirements](docs/PRD.md), [design](docs/DESIGN.md), [glossary](CONTEXT.md), [decisions](docs/adr/)
 - [Build session](docs/CODEX_SESSION.md), [contribution log](docs/CONTRIBUTIONS.md)
 - [Twitch integration follow-up](docs/TWITCH_INTEGRATION.md)
+- [Submission checklist and working description](docs/SUBMISSION.md)
 
 No paid API calls, registration or hackathon submission have been performed. Before submission, verify official rules, the actual build session ID, clean installation and live Twitch behaviour.
