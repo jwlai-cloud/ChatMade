@@ -1,3 +1,4 @@
+import type { TwitchView } from './twitch.js';
 export type Phase = 'LOBBY' | 'COLLECT' | 'SELECT' | 'GENERATE' | 'REVEAL' | 'PLAY' | 'RESULT';
 export type Category = 'body' | 'power' | 'weakness';
 export type Attack = 'charge' | 'bounce' | 'burst';
@@ -13,6 +14,7 @@ export type State = {
   elapsed: number; cycle: number; telegraph: boolean; help: Record<string, number>; helpUsed: Record<string, number>;
   rescueUntil: number; cooldownUntil: number; rescues: number; outcome: 'SURVIVED' | 'CAUGHT' | null;
   notice: string; saveStatus: string; provenance: 'original-fallback';
+  mode: 'sample' | 'twitch'; channel: string | null; twitch?: TwitchView;
 };
 export const SIZE = { width: 960, height: 600 };
 export const ATTACKS: Record<Attack, string> = { charge: 'Charge · locks onto your position, then lunges', bounce: 'Bounce · ricochets around the arena', burst: 'Burst · fires a ring of dodgeable projectiles' };
@@ -21,7 +23,7 @@ export const PARTICIPANTS = [{ id: 'sample-moss', name: 'Moss (sample)' }, { id:
 const categories: Category[] = ['body', 'power', 'weakness'];
 const clamp = (n: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, n));
 export function initialState(seed = 42, roundId = 'sample'): State {
-  return { roundId, seed, phase: 'LOBBY', remaining: 0, paused: false, threshold: 3, suggestions: [], recipes: [], votes: {}, winner: null, selected: null, player: { x: 480, y: 470 }, monster: { x: 480, y: 200 }, target: { x: 480, y: 470 }, hazards: [], hearts: 3, invulnerable: 0, elapsed: 0, cycle: 0, telegraph: false, help: {}, helpUsed: {}, rescueUntil: 0, cooldownUntil: 0, rescues: 0, outcome: null, notice: 'Your chat. Your creature. Your problem.', saveStatus: '', provenance: 'original-fallback' };
+  return { roundId, seed, phase: 'LOBBY', remaining: 0, paused: false, threshold: 3, suggestions: [], recipes: [], votes: {}, winner: null, selected: null, player: { x: 480, y: 470 }, monster: { x: 480, y: 200 }, target: { x: 480, y: 470 }, hazards: [], hearts: 3, invulnerable: 0, elapsed: 0, cycle: 0, telegraph: false, help: {}, helpUsed: {}, rescueUntil: 0, cooldownUntil: 0, rescues: 0, outcome: null, notice: 'Your chat. Your creature. Your problem.', saveStatus: '', provenance: 'original-fallback', mode: 'sample', channel: null };
 }
 export function cleanText(value: unknown, max = 80): string {
   if (typeof value !== 'string') throw new Error('Text required.');
@@ -39,7 +41,7 @@ export class Game {
   private velocity: Point = { x: 200, y: 140 };
   private burstIndex = 0;
   constructor(seed = 42, roundId = 'sample') { this.state = initialState(seed, roundId); }
-  reset(seed: number, roundId: string) { const threshold = this.state.threshold; this.state = initialState(seed, roundId); this.state.threshold = threshold; this.seen.clear(); this.movement = { x: 0, y: 0 }; this.velocity = { x: 200, y: 140 }; this.burstIndex = 0; }
+  reset(seed: number, roundId: string) { const { threshold, mode } = this.state; this.state = initialState(seed, roundId); this.state.threshold = threshold; this.state.mode = mode; this.seen.clear(); this.movement = { x: 0, y: 0 }; this.velocity = { x: 200, y: 140 }; this.burstIndex = 0; }
   start() { this.require('LOBBY'); this.state.phase = 'COLLECT'; this.state.remaining = 30; this.state.notice = 'Invent something we probably should not bring to life.'; }
   require(phase: Phase) { if (this.state.phase !== phase || this.state.paused) throw new Error(`Action requires unpaused ${phase}.`); }
   input(eventId: string, user: string, name: string, command: string): string {

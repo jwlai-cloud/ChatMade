@@ -5,6 +5,7 @@ import { resolve, extname, sep } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { WebSocketServer, WebSocket } from 'ws';
 import { Game, PARTICIPANTS, cleanText } from '../shared/game.js';
+import { TwitchConnection, validClientId } from './twitch.js';
 
 export function validToken(candidate: unknown, expected: string) {
   if (typeof candidate !== 'string') return false;
@@ -36,11 +37,13 @@ export function applyAction(game: Game, a: Record<string, unknown>) {
       if (typeof a.x !== 'number' || typeof a.y !== 'number' || ![-1, 0, 1].includes(a.x) || ![-1, 0, 1].includes(a.y)) throw new Error('Invalid movement.');
       game.movement = s.phase === 'PLAY' && !s.paused ? { x: a.x, y: a.y } : { x: 0, y: 0 }; break;
     case 'sample': {
+      if (s.mode !== 'sample') throw new Error('Sample inputs are disabled during Twitch rounds.');
       const user = PARTICIPANTS.find(p => p.id === a.user);
       if (!user) throw new Error('Choose a sample participant.');
       return game.input(cleanText(a.eventId, 100), user.id, user.name, cleanText(a.command, 100));
     }
     case 'seed-samples': {
+      if (s.mode !== 'sample') throw new Error('Sample inputs are disabled during Twitch rounds.');
       game.require('COLLECT');
       const samples = [['Jelly knight', 'Charging hugs', 'Rubber ducks'], ['Cosmic mushroom', 'Bouncing boots', 'Sticky syrup'], ['Sleepy dragon', 'Projectile burst', 'Tiny marshmallows']];
       for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++) game.input(randomUUID(), PARTICIPANTS[i].id, PARTICIPANTS[i].name, `!${['body', 'power', 'weakness'][j]} ${samples[i][j]}`);
@@ -51,24 +54,32 @@ export function applyAction(game: Game, a: Record<string, unknown>) {
   return 'Done.';
 }
 
-export async function createApp({ port = 4317, production = false, dataDir = resolve('data'), token: suppliedToken }: { port?: number; production?: boolean; dataDir?: string; token?: string } = {}) {
+export async function createApp({ port = 4317, production = false, dataDir = resolve('data'), token: suppliedToken, twitchClientId, twitchTestOptions }: { port?: number; production?: boolean; dataDir?: string; token?: string; twitchClientId?: string; twitchTestOptions?: { fetcher: typeof fetch; openSocket: (url: string) => WebSocket } } = {}) {
   await mkdir(dataDir, { recursive: true, mode: 0o700 });
   const token = suppliedToken ?? randomBytes(32).toString('hex');
   if (!suppliedToken) await writeFile(resolve(dataDir, 'host-key.txt'), token, { mode: 0o600 });
   const game = new Game(42, randomUUID());
+  let configuredClientId = twitchClientId ?? process.env.TWITCH_CLIENT_ID ?? '';
+  if (!configuredClientId) { try { configuredClientId = (await readFile(resolve(dataDir, 'twitch-client-id.txt'), 'utf8')).trim(); } catch (error) { if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error; } }
+  if (!configuredClientId) { try { configuredClientId = JSON.parse(await readFile(resolve('publisher.json'), 'utf8')).twitchClientId ?? ''; } catch (error) { if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error; } }
+  const twitch = new TwitchConnection({ clientId: configuredClientId, ...twitchTestOptions, onCommand: command => {
+    if (game.state.mode !== 'twitch' || game.state.channel !== twitch.channel) throw new Error('This is not the connected Twitch round.');
+    game.input(command.id, command.user, command.name, command.text);
+  } });
   let origin = `http://127.0.0.1:${port}`;
   let vite: Awaited<ReturnType<typeof import('vite')['createServer']>> | undefined;
   const server = createServer((req, res) => { void handle(req, res).catch(() => { if (!res.headersSent) res.writeHead(500); res.end('Server error.'); }); });
   const wss = new WebSocketServer({ noServer: true, maxPayload: 4096 });
   const hosts = new Set<WebSocket>();
   const send = (ws: WebSocket, value: unknown) => { if (ws.readyState === WebSocket.OPEN) { if (ws.bufferedAmount > 1024 * 1024) ws.close(1013, 'Client too slow'); else ws.send(JSON.stringify(value)); } };
-  function broadcast() { const pub = { type: 'state', state: game.snapshot() }; const host = { type: 'state', state: game.snapshot(true) }; for (const ws of wss.clients) send(ws, hosts.has(ws) ? host : pub); }
+  function snapshot(host = false) { return { ...game.snapshot(host), twitch: twitch.snapshot(host) }; }
+  function broadcast() { const pub = { type: 'state', state: snapshot() }; const host = { type: 'state', state: snapshot(true) }; for (const ws of wss.clients) send(ws, hosts.has(ws) ? host : pub); }
   async function handle(req: IncomingMessage, res: ServerResponse) {
     res.setHeader('X-Content-Type-Options', 'nosniff'); res.setHeader('Referrer-Policy', 'no-referrer'); res.setHeader('Cache-Control', 'no-store');
     if (req.headers.host !== new URL(origin).host) { res.writeHead(403); res.end('Invalid host. Use 127.0.0.1.'); return; }
     if (req.method !== 'GET') { res.writeHead(405); res.end('Method not allowed.'); return; }
     const path = new URL(req.url ?? '/', origin).pathname;
-    if (path === '/api/state') { res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(game.snapshot())); return; }
+    if (path === '/api/state') { res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(snapshot())); return; }
     if (path.startsWith('/api/')) { res.writeHead(404); res.end('Not found.'); return; }
     if (!production && vite) {
       const decoded = decodeURIComponent(path);
@@ -89,7 +100,7 @@ export async function createApp({ port = 4317, production = false, dataDir = res
     wss.handleUpgrade(req, socket, head, ws => wss.emit('connection', ws));
   });
   wss.on('connection', ws => {
-    send(ws, { type: 'state', state: game.snapshot() });
+    send(ws, { type: 'state', state: snapshot() });
     let count = 0, window = Date.now(), lastMovement = 0;
     ws.on('message', raw => {
       try {
@@ -98,8 +109,28 @@ export async function createApp({ port = 4317, production = false, dataDir = res
         const a: unknown = JSON.parse(raw.toString());
         if (!a || typeof a !== 'object' || Array.isArray(a)) throw new Error('Invalid action.');
         const action = a as Record<string, unknown>;
-        if (action.type === 'auth') { if (!validToken(action.token, token)) throw new Error('Invalid host key.'); hosts.add(ws); send(ws, { type: 'authenticated' }); send(ws, { type: 'state', state: game.snapshot(true) }); return; }
+        if (action.type === 'auth') { if (!validToken(action.token, token)) throw new Error('Invalid host key.'); hosts.add(ws); send(ws, { type: 'authenticated' }); send(ws, { type: 'state', state: snapshot(true) }); return; }
         if (!hosts.has(ws)) throw new Error('Read-only connection. Unlock host controls first.');
+        if (action.type === 'twitch-configure') {
+          game.require('LOBBY');
+          if (!validClientId(action.clientId)) throw new Error('Enter the public Twitch Client ID.');
+          twitch.configure(action.clientId);
+          void writeFile(resolve(dataDir, 'twitch-client-id.txt'), action.clientId, { mode: 0o600 }).then(() => { send(ws, { type: 'ack', message: 'Publisher Client ID saved.' }); }).catch(() => send(ws, { type: 'error', message: 'Could not save publisher settings.' }));
+          broadcast(); return;
+        }
+        if (action.type === 'twitch-connect') {
+          if (!['LOBBY', 'RESULT'].includes(game.state.phase)) throw new Error('Finish or abort this round before connecting another account.');
+          void twitch.begin().catch(error => send(ws, { type: 'error', message: error instanceof Error ? error.message : 'Twitch connection failed.' })); return;
+        }
+        if (action.type === 'twitch-disconnect') { twitch.disconnect(); broadcast(); return; }
+        if (action.type === 'mode') {
+          game.require('LOBBY'); if (action.mode !== 'sample' && action.mode !== 'twitch') throw new Error('Choose sample or Twitch mode.');
+          game.state.mode = action.mode; broadcast(); return;
+        }
+        if (action.type === 'start' && game.state.mode === 'twitch') {
+          if (!twitch.connected) throw new Error('Connect Twitch before starting a live round.');
+          game.state.channel = twitch.channel;
+        }
         const message = applyAction(game, action);
         if (action.type === 'move') lastMovement = Date.now();
         else send(ws, { type: 'ack', message });
@@ -111,6 +142,8 @@ export async function createApp({ port = 4317, production = false, dataDir = res
   });
   if (!production) { const { createServer: createVite } = await import('vite'); vite = await createVite({ server: { middlewareMode: true, hmr: { server }, fs: { deny: ['.env', '.env.*', '*.{crt,pem}', '**/.git/**', '**/data/**', `${dataDir}/**`] } }, appType: 'spa' }); }
   await new Promise<void>((ok, fail) => { server.once('error', fail); server.listen(port, '127.0.0.1', () => { const address = server.address(); if (address && typeof address !== 'string') origin = `http://127.0.0.1:${address.port}`; ok(); }); });
+  const hostLauncher = resolve(dataDir, 'open-host.html');
+  if (!suppliedToken) await writeFile(hostLauncher, `<!doctype html><meta charset="utf-8"><meta name="referrer" content="no-referrer"><title>Open ChatMade</title><script>location.replace(${JSON.stringify(`${origin}/host#host-key=${token}`)})</script><p>Opening ChatMade host controls…</p>`, { mode: 0o600 });
   let frame = 0, previous = performance.now(), accumulator = 0; const saving = new Set<string>();
   const tick = setInterval(() => {
     const now = performance.now();
@@ -122,15 +155,18 @@ export async function createApp({ port = 4317, production = false, dataDir = res
     const s = game.state;
     if (s.phase === 'RESULT' && !saving.has(s.roundId)) {
       saving.add(s.roundId); s.saveStatus = 'Saving…';
-      const record = { version: 1, roundId: s.roundId, seed: s.seed, mode: 'local-simulation', recipe: s.selected, provenance: s.provenance, asset: '/creature.svg', outcome: s.outcome, elapsed: s.elapsed, hearts: s.hearts, rescues: s.rescues, savedAt: new Date().toISOString() };
+      const record = { version: 1, roundId: s.roundId, seed: s.seed, mode: s.mode === 'twitch' ? 'twitch' : 'local-simulation', channel: s.channel, recipe: s.selected, provenance: s.provenance, asset: '/creature.svg', outcome: s.outcome, elapsed: s.elapsed, hearts: s.hearts, rescues: s.rescues, savedAt: new Date().toISOString() };
       void writeFile(resolve(dataDir, `${s.roundId}.json`), JSON.stringify(record, null, 2), { flag: 'wx', mode: 0o600 }).then(() => { s.saveStatus = 'Saved locally'; }).catch(() => { s.saveStatus = 'Save failed · export result before restarting'; });
     }
     if (++frame % 3 === 0) broadcast();
   }, 1000 / 60);
-  return { game, origin, close: async () => { clearInterval(tick); for (const ws of wss.clients) ws.terminate(); wss.close(); await vite?.close(); await new Promise<void>(ok => server.close(() => ok())); } };
+  return { game, twitch, origin, hostLauncher, close: async () => { clearInterval(tick); twitch.close(); for (const ws of wss.clients) ws.terminate(); wss.close(); await vite?.close(); await new Promise<void>(ok => server.close(() => ok())); } };
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
-  const app = await createApp({ production: process.env.NODE_ENV === 'production' });
-  console.log(`ChatMade: ${app.origin}/host\nBroadcast: ${app.origin}/broadcast\nHost unlock key: data/host-key.txt (private; regenerated on startup)`);
+  const port = Number(process.env.CHATMADE_PORT ?? 4317);
+  if (!Number.isInteger(port) || port < 0 || port > 65535) throw new Error('CHATMADE_PORT must be 0–65535.');
+  const app = await createApp({ port, production: process.env.NODE_ENV === 'production' });
+  console.log(`ChatMade: ${app.origin}/host\nBroadcast: ${app.origin}/broadcast\nOpen host controls: ${app.hostLauncher}\nManual unlock key: data/host-key.txt (private)`);
+  process.send?.({ type: 'ready', origin: app.origin, hostLauncher: app.hostLauncher });
   for (const signal of ['SIGINT', 'SIGTERM'] as const) process.once(signal, () => { void app.close().then(() => process.exit(0)); });
 }

@@ -4,9 +4,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "tsx server/index.ts",
-    "build": "tsc --noEmit && vite build",
-    "start": "NODE_ENV=production tsx server/index.ts",
+    "dev": "node --env-file-if-exists=.env --import tsx server/index.ts",
+    "build": "tsc --noEmit && vite build && tsc -p tsconfig.server.json",
+    "start": "node --env-file-if-exists=.env scripts/start.mjs",
+    "launch": "node --env-file-if-exists=.env scripts/launch.mjs",
+    "package": "npm run build && node --env-file-if-exists=.env scripts/package.mjs",
     "test": "node --import tsx --test tests/*.test.ts"
   },
   "dependencies": {"react": "^19.2.0", "react-dom": "^19.2.0", "ws": "^8.18.0"},

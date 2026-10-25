@@ -40,3 +40,28 @@ Rotated successive projectile rings deterministically to avoid a permanently saf
 Final validation: 15 automated tests passed and the TypeScript/Vite production build passed. Changes after the browser walkthrough were validated by tests and compilation; a further browser pass remains outstanding because of the approval-review limit.
 
 Recorded the user's requirement that other streamers can adopt the product easily. Defined reusable companion onboarding and explicitly distinguished it from the current developer-only npm/manual-key setup. Downloadable packaging and Twitch connection are still outstanding; no Twitch Extension or hosted service was introduced.
+
+## 25 October 2026 — reusable Twitch connection and Mac preview
+
+Continued in the same primary build session after the user confirmed this is the build chat and asked to implement the new streamer-adoption requirements. The user has not registered a Twitch app yet and is handling publisher registration; no real Client ID or tokens have been supplied.
+
+### Implementation
+
+- `server/twitch.ts`: Public-client device-code authorisation with only `user:read:chat`, server-memory tokens, cancellation/stale-result guards, identity/scope validation, hourly validation, single-flight refresh and EventSub subscription creation.
+- EventSub lifecycle: keepalive watchdog, bounded reconnect backoff, official handoff without duplicate subscriptions, fresh-connection resubscription, revocation and duplicate/stale/foreign-channel filtering.
+- `server/index.ts`, `shared/game.ts`: explicit live/sample modes, connected-account checks, sample-input rejection in live rounds, dynamic authorised broadcaster/channel and mode-aware saved results. Gameplay continues through chat disconnection.
+- `src/ConnectionPanel.tsx`: guided Twitch connection, host-only device instructions, publisher Client ID setup, mode selection and copyable read-only OBS URL. Broadcast views never receive authorisation instructions or tokens.
+- Local host launcher opens the authenticated host page and clears its key fragment after reading it. No browser storage of Twitch tokens and no keys in startup logs.
+- Compiled production backend and cross-platform source start/launch scripts. `scripts/package.mjs` builds a native macOS ZIP with bundled Node, built server/client, original SVG, ws and third-party licences. Public publisher configuration is embedded when available; source data and credentials are excluded.
+
+### Validation
+
+- 28 automated tests passed. New tests cover device polling/backoff, denied access, missing scope, client mismatch, cancellation, token privacy, identity-derived subscriptions, delivery/chat deduplication, shared-chat filtering, official reconnect handoff, timeout recovery, token rotation, hourly validation and revocation.
+- A loopback integration test uses mocked Twitch APIs/EventSub to authorise a host, enter live mode, moderate an incoming idea, select a recipe, activate rescue from three unique viewers, reject simulated commands, survive chat disconnection and persist live channel/mode without tokens.
+- Production TypeScript/Vite/backend build passed.
+- Generated a macOS arm64 preview package, about 35 MB compressed. Its bundled runtime started successfully on this developer Mac; headless HTTP checks verified host, broadcast, private launcher/key isolation and clean shutdown. Test data was removed before archiving. Browser opening was explicitly disabled during these checks.
+- A stricter smoke-check invocation exposed inherited Node command-line flags in forked children and an error being masked during cleanup. Cleared child `execArgv`, preserved the original failure and required successful shutdown; the rebuilt preview passed.
+
+### Outstanding evidence
+
+No real Twitch authorisation/chat/reconnect test, three-viewer playtest, real-browser verification of the new setup panel, clean-machine package test, notarized installer, Windows/Linux native package, image generation, frame-rate measurement or submission video. Earlier browser approval-review usage-limit block still prevents browser automation/PNG verification; no alternate browser or indirect export workaround was used. Tokens intentionally require reauthorisation after app restart because OS keychain persistence is deferred.

@@ -29,7 +29,7 @@ export function drawArena(ctx: CanvasRenderingContext2D, s: State, creature: HTM
 export async function exportResult(s: State, credits: boolean) {
   const canvas = document.createElement('canvas'); canvas.width = 1200; canvas.height = 675; const c = canvas.getContext('2d')!;
   const image = new Image(); image.src = '/creature.svg'; await image.decode();
-  c.fillStyle = '#100b24'; c.fillRect(0, 0, 1200, 675); c.fillStyle = '#c5f45b'; c.font = 'bold 26px sans-serif'; c.fillText('CHATMADE  /  LOCAL SIMULATION', 60, 65);
+  c.fillStyle = '#100b24'; c.fillRect(0, 0, 1200, 675); c.fillStyle = '#c5f45b'; c.font = 'bold 26px sans-serif'; c.fillText(s.mode === 'sample' ? 'CHATMADE  /  LOCAL SIMULATION' : `CHATMADE  /  TWITCH · ${s.channel ?? ''}`, 60, 65);
   c.fillStyle = '#fff7e8'; c.font = 'bold 76px sans-serif'; c.fillText(s.outcome ?? 'RESULT', 60, 175);
   c.font = 'bold 42px sans-serif'; c.fillText(s.selected?.name ?? 'Creature', 60, 244); c.drawImage(image, 745, 120, 400, 400);
   c.font = '22px sans-serif'; c.fillStyle = '#b5acc9'; c.fillText(`${s.hearts} hearts left · ${s.rescues} rescues · ${Math.min(60, s.elapsed).toFixed(1)} seconds`, 60, 295);
