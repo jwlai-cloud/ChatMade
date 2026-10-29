@@ -65,3 +65,7 @@ Continued in the same primary build session after the user confirmed this is the
 ### Outstanding evidence
 
 No real Twitch authorisation/chat/reconnect test, three-viewer playtest, real-browser verification of the new setup panel, clean-machine package test, notarized installer, Windows/Linux native package, image generation, frame-rate measurement or submission video. Earlier browser approval-review usage-limit block still prevents browser automation/PNG verification; no alternate browser or indirect export workaround was used. Tokens intentionally require reauthorisation after app restart because OS keychain persistence is deferred.
+
+## 29 October 2026 — final-week review
+
+Rechecked the official hackathon deadline/criteria and reviewed the Twitch Showcase plus its historical Crowd Control and Vermintide 2 case studies. Recorded a narrow differentiation hypothesis, explicit limits of that comparison and evidence needed for each judging criterion in SUBMISSION.md. Corrected stale wording that packaging/guided connection were not implemented; their live and clean-machine verification remains outstanding. No code changed and no tests were rerun for this documentation review.

@@ -1,6 +1,6 @@
 # Submission preparation
 
-Status: Draft, 25 October 2026. This document prepares materials; nothing has been registered, shared with judges or submitted.
+Status: Draft, reviewed 29 October 2026. This document prepares materials; no hackathon submission or judge sharing has been performed.
 
 ## Required deliverables
 
@@ -11,7 +11,29 @@ Status: Draft, 25 October 2026. This document prepares materials; nothing has be
 | Codex session ID | Environment reports `01a16cd5-1329-7140-b20c-c69757f52492`; this session contains review, implementation, debugging and tests. | Cross-check with `/status` and confirm this remains the session containing most build work. See CODEX_SESSION.md. |
 | Demo under three minutes | A 165-second storyboard is in DESIGN.md. | Record actual Twitch participation and Codex build evidence; publish the finished video as required and provide its URL. No video exists yet. |
 
-An installable Twitch Extension is not specified in the supplied submission requirements. The project still needs to run reliably and demonstrate its Twitch interaction. Easy adoption by other streamers remains our own product requirement, with packaging and guided connection still outstanding.
+An installable Twitch Extension is not specified in the supplied submission requirements. The project still needs to run reliably and demonstrate its Twitch interaction. Easy adoption by other streamers remains our own product requirement: packaging and guided connection are implemented, while real-channel and clean-machine usability checks are still outstanding.
+
+## Final-week priorities — 29 October 2026
+
+The [official brief](https://twitchcon-codex.devpost.com/) still lists 2 November 2026 at 14:00 PST, equivalent to **3 November at 06:00 in Perth**. Keep the earlier operational target of 2 November Perth evening. Its four judging criteria remain innovation, potential impact, implementation/Codex and design.
+
+| Criterion | Existing evidence | Highest-value remaining evidence |
+| --- | --- | --- |
+| Innovation/Idea | Collective creature recipe, bounded playable consequences and cooperative rescue. | Explain the specific difference from existing audience-directed games without claiming market uniqueness. |
+| Potential Impact | A short standalone segment designed for a streamer and a small audience. | Observe one streamer and three actual viewers using it; record whether they understand commands and want another round. Do not claim retention improvements. |
+| Implementation/Codex | Source, 28 passing tests at the last run, build/package checks, design decisions and documented debugging in the main Codex session. | Verify actual Twitch authorisation/chat/reconnect; capture readable Codex implementation/debug evidence for the video. |
+| Design | Creature reveal, arena, contribution credits, host controls and separate broadcast view. | Check guided setup with another streamer, readable OBS capture and complete real round. New setup UI and PNG download still need browser verification. |
+
+Execution order: finish publisher Client ID setup and real Twitch connection; complete the live round/playtest; fix observed reliability/usability issues; record a sub-three-minute demo and finalise repository access, description and session ID. Generation remains planned and needs provider/budget agreement before paid calls; it must not delay establishing a working Twitch demonstration. Do not add new platforms, competing teams, combat mechanics or Extension delivery before the demonstrated core loop works.
+
+## Showcase comparison — limited historical review
+
+Reviewed the official [Showcase](https://dev.twitch.tv/showcase/) and two linked Twitch case studies on 29 October. These are historical examples, not a current exhaustive competitor audit:
+
+- [Crowd Control, 2019](https://blog.twitch.tv/en/2019/02/15/the-evolution-of-speedrunning-crowd-control-caf6e259e848/): Twitch describes viewers helping or hindering an existing game through effects. ChatMade's proposed distinction is a standalone creature-making survival segment rather than integration with a catalogue of external games.
+- [Vermintide 2 integration, 2019](https://blog.twitch.tv/en/2019/03/08/a-twitch-integration-lets-the-viewers-call-the-shots-b5eae972d3ef/): Twitch describes chat votes changing game events and discusses viewer names appearing in games. Audience voting and attribution therefore cannot serve as uniqueness claims by themselves. Make the actual gameplay effect of audience choices obvious and keep choices balanced.
+
+Our differentiation is a positioning hypothesis to demonstrate, not proof that no comparable product exists. Do not reuse the case studies' historical APIs or growth claims as current technical guidance or ChatMade outcome evidence.
 
 ## Project description — working draft
 
