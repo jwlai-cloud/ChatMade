@@ -96,6 +96,21 @@ npm run build
 
 Tests cover the core loop, deterministic attacks, moderation/privacy, malformed input, vote/delivery replacement, rescue timing, collision, pause/reset, host authentication, origin rejection, browser reconnection and result persistence. Integration tests open temporary loopback ports. Twitch responses and EventSub sockets are mocked; passing these checks does not establish real Twitch compatibility.
 
+## Scripted demo recording
+
+Requires Google Chrome and `ffmpeg` / `ffprobe` on PATH. Install Playwright's recording helper once, then capture:
+
+```sh
+npx playwright install ffmpeg
+npm run video:sample
+```
+
+The script starts a disposable local server, drives an actual sample round, and saves raw page videos, timing markers, result PNGs and an edited silent 1080p MP4 under a new `release/video/` folder. Sample footage is visibly labelled as simulated participants. Existing captures are preserved.
+
+`npm run video:live` instead waits for you to authorize Twitch and sign into chat in its separate Chrome browser before recording begins. It uses one real account and rescue threshold 1; it does not validate three-viewer participation. Login state stays in memory, without reading your existing Chrome profile or saving credentials. Live capture validation is pending.
+
+The edited walkthrough must still be combined with actual Codex build evidence and narration for submission. The renderer checks the MP4 stays below three minutes. Re-render a completed capture with `node scripts/render-demo.mjs /absolute/path/to/capture.json`; preserve or rename an existing MP4 first.
+
 ## Planning and evidence
 
 - [Product requirements](docs/PRD.md), [design](docs/DESIGN.md), [glossary](CONTEXT.md), [decisions](docs/adr/)
