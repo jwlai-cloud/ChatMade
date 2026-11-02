@@ -69,3 +69,17 @@ No real Twitch authorisation/chat/reconnect test, three-viewer playtest, real-br
 ## 29 October 2026 — final-week review
 
 Rechecked the official hackathon deadline/criteria and reviewed the Twitch Showcase plus its historical Crowd Control and Vermintide 2 case studies. Recorded a narrow differentiation hypothesis, explicit limits of that comparison and evidence needed for each judging criterion in SUBMISSION.md. Corrected stale wording that packaging/guided connection were not implemented; their live and clean-machine verification remains outstanding. No code changed and no tests were rerun for this documentation review.
+
+## 2 November 2026 — first real Twitch smoke test
+
+The user registered the Public Twitch application and completed device authorisation. Codex configured the public Client ID locally, rebuilt the publisher-configured macOS arm64 package, and verified startup/host/broadcast/private-launcher isolation and clean shutdown. Production build passed. The first sandboxed package smoke check could not start its child; the approved loopback-capable retry passed.
+
+At the user's request, Codex drove host controls and real broadcaster chat for a threshold-1 round in `jwlaicloud`: three suggestions reached moderation, a vote counted, host approval gated reveal, `!help` triggered rescue, keyboard movement and pause/resume worked, and a CAUGHT result was saved locally. Real-browser PNG download completed and the rendered image was inspected. Browser automation was available again, resolving the previous usage-limit obstacle for these checks. Repeated idle keepalive timeouts/recovery were observed and remain an open reliability finding. See LIVE_TEST_2026-11-02.md for exact evidence and limits. No application code changed; no automated tests were rerun for this manual test/documentation work. Three-viewer, controlled network-loss, OBS and clean-machine validation remain pending.
+
+## 2 November 2026 — submission review and local materials
+
+Used the hackathon-judge and hackathon-submission skills, the demo-video skill for the shot list, and live Devpost Hackathons plugin reads. Verified registration, actual custom field IDs, required public YouTube video, 5-point/equally weighted criteria and structured submission deadline. Inspected the existing ChatMate project: empty description, no video, draft state and no submitted timestamp. GitHub plugin confirmed the source repo remains private. No Devpost write, invitation, visibility change, final submission or eligibility agreement was performed.
+
+Prepared an evidence-backed review, Devpost story and exact technology/community answers, judge setup guide, architecture/sequence diagrams, Graphviz-rendered SVG, copied verified live-result PNG and a 165-second recording script. Corrected stale README and checklist claims about real Twitch and PNG verification. User confirmed Individual, A lot / Very likely feedback, and the main build session ID through `/status`; country and legal declarations were left for explicit answers.
+
+Ran the complete suite again: 28 passed, zero failed. A fresh archive of committed source installed all dependencies using the local npm cache and passed TypeScript/Vite/backend build without source data or developer credentials. This validates fresh source dependency/build instructions on the same Mac, not another streamer's clean-machine GUI or OBS setup. Application code was unchanged; live keepalive instability remains unresolved. No video was recorded or uploaded.

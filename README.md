@@ -6,9 +6,9 @@
 
 ChatMade is an audience-participation game for Twitch streams. Viewers use Twitch chat to invent a monster, vote on its recipe, then cooperate to help the streamer survive a 60-second encounter shown on stream. The name means “made by chat.”
 
-Local sample mode is playable. Guided Twitch authorisation and EventSub chat reception are implemented and tested with mocked Twitch responses; real Twitch authorisation and a live-viewer playtest are still pending. Runtime AI generation is not implemented.
+Local sample mode and guided Twitch authorisation/EventSub reception are implemented. A real one-account Twitch round passed on 2 November, including suggestions, vote, rescue, saved outcome and PNG download. Repeated idle keepalive timeouts/recovery remain under investigation; three-viewer and OBS checks are pending. Runtime AI generation is not implemented.
 
-Intended delivery is a reusable streamer companion with guided Twitch connection and an OBS browser-source URL. A macOS Apple Silicon preview can now be packaged with its own Node runtime and browser launcher. Live onboarding still needs a registered publisher Client ID and real-world verification; other platform packages are not yet provided. Viewers will participate in existing Twitch chat without another app.
+Intended delivery is a reusable streamer companion with guided Twitch connection and an OBS browser-source URL. A publisher-configured macOS Apple Silicon preview has been packaged with its own Node runtime and browser launcher. Another streamer's setup and clean-machine usability still need verification; other platform packages are not yet provided. Viewers participate in existing Twitch chat without another app.
 
 ## Run
 
@@ -36,7 +36,7 @@ For development, run `npm run dev` instead. Source changes reload the page; unlo
 
 Publisher setup happens once for ChatMade, not once per streamer:
 
-1. Register a **Public** Twitch application in the [Developer Console](https://dev.twitch.tv/console/apps). Twitch requires verified email and 2FA. Use a unique name; if registration asks for a redirect URL, `http://localhost:4317` is suitable registration metadata for this device-code flow.
+1. Register a **Public** Twitch application in the [Developer Console](https://dev.twitch.tv/console/apps). Twitch requires verified email and 2FA. Use a unique name; if registration requires HTTPS for its redirect field, use `https://localhost:4317` as registration metadata. Device-code login does not use that redirect or require a local HTTPS server. ChatMade's publisher has completed registration; testers can use the public ID in [judge instructions](docs/JUDGE_TESTING.md).
 2. Save its **public Client ID** under Publisher setup in the host desk. Alternatively set `TWITCH_CLIENT_ID` in a local `.env` file using `.env.example`. No client secret is used or distributed.
 3. Click **Connect Twitch**, open Twitch's authorisation link and enter the displayed code. Grant read-only chat access. The authorised account's own channel is selected automatically.
 4. In the lobby, choose **Live Twitch chat**. Starting a live round requires a connected account; sample inputs are rejected server-side in this mode.
@@ -44,7 +44,7 @@ Publisher setup happens once for ChatMade, not once per streamer:
 
 Access, refresh and device tokens stay in the backend's memory and are not logged, stored in browser state or saved in round records. Reauthorise after restarting the app. Disconnect forgets local tokens; revoke the app grant separately in Twitch Connections if desired. The app reads chat and does not send chat messages. Keepalive failures trigger reconnect; official Twitch reconnect handoffs preserve subscriptions; fresh connections recreate them. Deduplication persists across rounds. Chat loss does not stop an encounter.
 
-This path is implemented but **not yet verified against real Twitch**. See [integration details and live checklist](docs/TWITCH_INTEGRATION.md).
+Real one-account authorisation, delivery, vote and rescue passed; reconnect reliability and community validation remain open. See [integration details and live checklist](docs/TWITCH_INTEGRATION.md) and [observed live evidence](docs/LIVE_TEST_2026-11-02.md).
 
 ## Package a streamer preview
 
@@ -58,7 +58,7 @@ This builds and smoke-tests a ZIP under `release/` for the current Mac architect
 
 A Client ID saved in the host desk or set through `TWITCH_CLIENT_ID` is embedded as public publisher configuration, so other streamers only click Connect. Source `data/`, host keys, tokens and `.env` files are never copied. Package verification uses a temporary loopback server with browser opening disabled and removes generated test credentials before creating the ZIP.
 
-The current preview is macOS Apple Silicon and is not a notarized installer. Clean-machine setup, system compatibility, browser onboarding, OBS output and real chat still need manual validation. Windows/Linux source use is possible with Node, but native release packages have not been built or verified.
+The current preview is macOS Apple Silicon and is not a notarized installer. Clean-machine setup, system compatibility, another streamer's onboarding and OBS output still need manual validation. Windows/Linux source use is possible with Node, but native release packages have not been built or verified.
 
 ## Try a complete sample round
 
@@ -79,7 +79,7 @@ All sample controls stay on the host page. Capture **http://127.0.0.1:4317/broad
 - Stun, slow and smaller danger zones; rolling unique-viewer rescue and cooldown.
 - Keyboard movement, collision invulnerability, pause, reset and system-stall auto-pause.
 - Read-only broadcast, host key/origin checks, private-file isolation, a private local launcher and reconnecting browser state.
-- Public-client Twitch device authorisation, server-only tokens, refresh/validation, EventSub reconnect and delivery deduplication (mock-tested).
+- Public-client Twitch device authorisation, server-only tokens, refresh/validation, EventSub reconnect and delivery deduplication. Auth/delivery passed a real one-account test; broader lifecycle cases are mock-tested and idle reconnect reliability remains open.
 - Explicit live/sample separation, channel-aware saved results and guided OBS setup.
 - macOS preview packaging with a bundled runtime and a headless startup/privacy/shutdown smoke check.
 - Local result persistence, selected attribution, original fallback provenance and PNG export.
@@ -102,5 +102,6 @@ Tests cover the core loop, deterministic attacks, moderation/privacy, malformed 
 - [Build session](docs/CODEX_SESSION.md), [contribution log](docs/CONTRIBUTIONS.md)
 - [Twitch integration follow-up](docs/TWITCH_INTEGRATION.md)
 - [Submission checklist and working description](docs/SUBMISSION.md)
+- [Prepared Devpost copy](devpost-submission.md), [judge quick start](docs/JUDGE_TESTING.md), [review](docs/HACKATHON_REVIEW.md)
 
-No paid generation calls or final hackathon submission have been performed. Before submission, verify official rules, the actual build session ID, clean installation and live Twitch behaviour.
+No paid generation calls or final hackathon submission have been performed by Codex. Main build session ID was confirmed by the user on 2 November. Before submission, resolve the review blockers, verify judge access and record the public Twitch/Codex video.

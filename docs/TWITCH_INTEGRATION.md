@@ -1,6 +1,6 @@
 # Twitch integration
 
-Status, 25 October 2026: implemented and mock-tested; real authorisation and a live-viewer playtest remain pending publisher registration. Do not present the mock tests as live Twitch evidence.
+Status, 2 November 2026: real Public-client authorisation and a one-account live Twitch smoke test passed. Three-viewer participation, controlled network-loss recovery and another streamer's onboarding remain unverified. Repeated idle keepalive timeouts were observed and require investigation. Do not present the mock tests or one-account smoke test as a three-viewer playtest.
 
 ## Official sources
 
@@ -27,12 +27,12 @@ Local disconnect forgets tokens. It does not revoke the publisher's application 
 
 ## Required live checks
 
-- [ ] Register the Public publisher application and configure Client ID.
-- [ ] Authorise a real broadcaster account and confirm the displayed channel.
+- [x] Register the Public publisher application and configure Client ID.
+- [x] Authorise a real broadcaster account and confirm the displayed channel.
 - [ ] Three real viewers submit suggestions, vote and activate rescue.
 - [ ] Complete three rounds, including pause/resume and original-art fallback.
 - [ ] Observe reconnect after a real network interruption; show unavailable chat state and no duplicate actions.
 - [ ] Test another streamer without editing source or entering developer credentials.
 - [ ] Record the Twitch interaction for the under-three-minute submission video.
 
-Browser automation and PNG verification remain blocked by the earlier browser approval-review usage limit. Do not bypass the block using alternate browser surfaces or indirect execution.
+Browser automation became available again on 2 November. Real-browser PNG download passed; see [the live smoke-test record](LIVE_TEST_2026-11-02.md). The previous usage-limit block no longer prevented these actions.

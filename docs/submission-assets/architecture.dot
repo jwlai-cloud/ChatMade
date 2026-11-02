@@ -1,0 +1,22 @@
+digraph ChatMade {
+  graph [rankdir=LR, bgcolor="#100b24", pad="0.4", nodesep="0.45", ranksep="0.7", fontname="Arial", label="ChatMade · delivered runtime", fontcolor="#fff7e8", fontsize=25, labelloc=t];
+  node [shape=box, style="rounded,filled", fillcolor="#29213e", color="#9a83c6", fontname="Arial", fontcolor="#fff7e8", fontsize=16, margin="0.22,0.15"];
+  edge [color="#b5acc9", fontcolor="#fff7e8", fontname="Arial", fontsize=12, arrowsize=0.8];
+  viewers [label="1. Viewers\nExisting Twitch chat", fillcolor="#42306a"];
+  twitch [label="2. Twitch\nDevice OAuth · API validation\nEventSub chat messages", fillcolor="#42306a"];
+  subgraph cluster_local {
+    label="Streamer computer · loopback only"; fontcolor="#b5acc9"; color="#6b587e"; style=rounded;
+    adapter [label="3. Twitch adapter\nBackend-only tokens\nValidate · deduplicate · recover"];
+    game [label="4. Node game engine\nModeration · votes · physics\nBounded rescue · outcomes", fillcolor="#31412a", color="#c5f45b"];
+    host [label="Host desk\nApprove · play · pause\nPrivate control key", fillcolor="#414027", color="#e8d68c"];
+    broadcast [label="5. Broadcast view\nRead-only React / Canvas\nDesigned for OBS capture", fillcolor="#173d42", color="#53e0ec"];
+    results [label="6. Local results\nSelected credits + outcome JSON\nCanvas PNG export", shape=folder];
+  }
+  viewers -> twitch [label="!body · !power\n!weakness · !vote · !help"];
+  twitch -> adapter [label="EventSub WebSocket"];
+  adapter -> game [label="Validated commands"];
+  game -> host [label="Private review queue"];
+  host -> game [label="Explicit approval\n+ keyboard controls", color="#e8d68c"];
+  game -> broadcast [label="Public state only", color="#53e0ec"];
+  game -> results [label="Completed round"];
+}

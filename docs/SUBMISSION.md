@@ -1,15 +1,17 @@
 # Submission preparation
 
-Status: Draft, reviewed 29 October 2026. This document prepares materials; no hackathon submission or judge sharing has been performed.
+Status: Local preparation, reviewed 2 November 2026 using live Devpost Hackathons and GitHub plugin data. Existing Devpost project `chatmate-lv56od` is an empty ChatMate draft with no video or submitted timestamp. No Devpost write, final submission or judge sharing has been performed by Codex.
+
+Use [prepared copy and exact form answers](../devpost-submission.md), [evidence-backed review](HACKATHON_REVIEW.md), [judge instructions](JUDGE_TESTING.md), [architecture](ARCHITECTURE.md) and [165-second recording script](DEMO_SCRIPT.md). These supersede the older working description below where its historical state differs.
 
 ## Required deliverables
 
 | Deliverable | Current evidence | Still required |
 | --- | --- | --- |
-| Runnable repository | [jwlai-cloud/ChatMade](https://github.com/jwlai-cloud/ChatMade) contains source, original fallback SVG, dependency lockfile, setup instructions and tests. Production build, 28 tests and the macOS preview runtime smoke check passed. | Test setup from a clean checkout; confirm judge access. The repo is private, so arrange access for testing@devpost.com before submission or explicitly choose public visibility. |
+| Runnable repository | [jwlai-cloud/ChatMade](https://github.com/jwlai-cloud/ChatMade) contains source, original fallback SVG, dependency lockfile, setup instructions and tests. 28 tests passed again on 2 November. Fresh source install/build and publisher-configured macOS package smoke check passed. | Confirm judge access. Repo is private; arrange accepted access for testing@devpost.com before submission or explicitly choose public visibility. Clean-machine graphical/OBS onboarding remains unverified. |
 | Project description | Working draft below; contribution evidence in CONTRIBUTIONS.md. | Update after live integration and final validation so every feature claim matches the delivered build. |
-| Codex session ID | Environment reports `01a16cd5-1329-7140-b20c-c69757f52492`; this session contains review, implementation, debugging and tests. | Cross-check with `/status` and confirm this remains the session containing most build work. See CODEX_SESSION.md. |
-| Demo under three minutes | A 165-second storyboard is in DESIGN.md. | Record actual Twitch participation and Codex build evidence; publish the finished video as required and provide its URL. No video exists yet. |
+| Codex session ID | User confirmed `/status` and main build chat `01a16cd5-1329-7140-b20c-c69757f52492` on 2 November. | Copy exact ID to required field 29289. See CODEX_SESSION.md. |
+| Demo under three minutes | 165-second shot list/narration in DEMO_SCRIPT.md. | Record actual Twitch participation and Codex build evidence; upload publicly visible YouTube video and provide URL. No video exists yet. |
 
 An installable Twitch Extension is not specified in the supplied submission requirements. The project still needs to run reliably and demonstrate its Twitch interaction. Easy adoption by other streamers remains our own product requirement: packaging and guided connection are implemented, while real-channel and clean-machine usability checks are still outstanding.
 
@@ -35,7 +37,9 @@ Reviewed the official [Showcase](https://dev.twitch.tv/showcase/) and two linked
 
 Our differentiation is a positioning hypothesis to demonstrate, not proof that no comparable product exists. Do not reuse the case studies' historical APIs or growth claims as current technical guidance or ChatMade outcome evidence.
 
-## Project description — working draft
+## Historical project description — 29 October draft
+
+The text below is retained as history. It predates the successful 2 November live smoke test and PNG export. Do not paste it into Devpost; use `devpost-submission.md`.
 
 **ChatMade: chat builds the monster; the streamer survives it.**
 
@@ -55,11 +59,13 @@ Keep credentials, host keys and unrelated private information out of the recordi
 
 ## Release gate
 
-- [ ] Real Twitch connection and a completed live round verified.
+- [x] Real Twitch connection and one completed live round verified (one broadcaster account, threshold 1).
+- [ ] Repeated idle keepalive timeouts investigated; controlled reconnect and three-viewer tests complete.
 - [ ] Other-streamer setup and clean-checkout instructions tested.
-- [ ] PNG download and OBS/broadcast readability checked.
+- [x] Real-browser result PNG download and rendered image checked.
+- [ ] OBS/broadcast readability checked.
 - [ ] Final feature claims match the frozen code and video.
 - [ ] Repository access for judges confirmed.
-- [ ] Main build session ID checked through `/status`.
+- [x] Main build session ID checked through `/status` and confirmed by user.
 - [ ] Video length, visibility and URL checked.
 - [ ] User explicitly requests final registration/submission before those actions occur.
