@@ -1,5 +1,11 @@
 # ChatMade
 
+## Live form update — 2 November 2026
+
+At the user's request to fill the submission form, saved the existing Devpost project as **ChatMade**, with the approved tagline, user-facing description, technology tags and judge-testing links. `update_project` returned version 3. Readback confirmed the title, tagline and populated description. Devpost reports the project page state as `published`; the hackathon's `submitted_at` remains null. A published project page is not a completed hackathon entry. Video URL remains absent. The custom-question answers below remain prepared locally; this connector saves them through final submission, not through the project-details update. No final submission or eligibility declaration was sent.
+
+The sections below retain local preparation notes. Earlier references to an empty ChatMate draft describe its state before this form update and are superseded by this paragraph. Project page: https://devpost.com/software/chatmate-lv56od .
+
 ## One-line Summary
 
 Chat builds the monster. The streamer survives it.
