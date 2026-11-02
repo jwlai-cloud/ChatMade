@@ -2,6 +2,8 @@
 
 ChatMade is a local Twitch audience-participation game, not a hosted website or installable Twitch Extension. No paid API key is required. Source target: Node.js 22.12+; the packaged preview targets macOS Apple Silicon only.
 
+Start with the sample round below: it needs no Twitch account or authorization. To test real Twitch, the host connects their channel once per app session and participants use their usual signed-in Twitch browser. Judges do not need the video capture scripts, a separate browser login, a bot account or their own Twitch developer application. The isolated Chrome login used by our automated recording tool is a recording prerequisite, not part of normal ChatMade setup.
+
 ## Install from source
 
 ```sh

@@ -4,6 +4,8 @@ Status: Local preparation, reviewed 2 November 2026 using live Devpost Hackathon
 
 Use [prepared copy and exact form answers](../devpost-submission.md), [evidence-backed review](HACKATHON_REVIEW.md), [judge instructions](JUDGE_TESTING.md), [architecture](ARCHITECTURE.md) and [165-second recording script](DEMO_SCRIPT.md). These supersede the older working description below where its historical state differs.
 
+For the next video operator, start with [complete video/submission handoff](VIDEO_HANDOFF.md) and [clean narration read](VIDEO_NARRATION.md). Requirements and structured deadline were rechecked through the Devpost Hackathons plugin at 04:46 UTC on 2 November. Only a 42.53-second silent, labelled sample video is complete. The automated live take authorized successfully but timed out before recording at its chat-readiness selector; no live video or final upload exists. The handoff identifies exact artifacts, repair steps, a manual-chat alternative, all remaining form fields and final acceptance checks.
+
 ## Required deliverables
 
 | Deliverable | Current evidence | Still required |
@@ -11,7 +13,7 @@ Use [prepared copy and exact form answers](../devpost-submission.md), [evidence-
 | Runnable repository | [jwlai-cloud/ChatMade](https://github.com/jwlai-cloud/ChatMade) contains source, original fallback SVG, dependency lockfile, setup instructions and tests. 28 tests passed again on 2 November. Fresh source install/build and publisher-configured macOS package smoke check passed. | Confirm judge access. Repo is private; arrange accepted access for testing@devpost.com before submission or explicitly choose public visibility. Clean-machine graphical/OBS onboarding remains unverified. |
 | Project description | Working draft below; contribution evidence in CONTRIBUTIONS.md. | Update after live integration and final validation so every feature claim matches the delivered build. |
 | Codex session ID | User confirmed `/status` and main build chat `01a16cd5-1329-7140-b20c-c69757f52492` on 2 November. | Copy exact ID to required field 29289. See CODEX_SESSION.md. |
-| Demo under three minutes | 165-second shot list/narration in DEMO_SCRIPT.md. | Record actual Twitch participation and Codex build evidence; upload publicly visible YouTube video and provide URL. No video exists yet. |
+| Demo under three minutes | 165-second shot list in DEMO_SCRIPT.md, narration in VIDEO_NARRATION.md, complete operator handoff in VIDEO_HANDOFF.md. A verified 42.53-second silent sample MP4 exists locally. | Capture actual Twitch participation and Codex build evidence, assemble and review final video, then arrange authorized public YouTube upload. Sample clip alone does not meet this requirement. |
 
 An installable Twitch Extension is not specified in the supplied submission requirements. The project still needs to run reliably and demonstrate its Twitch interaction. Easy adoption by other streamers remains our own product requirement: packaging and guided connection are implemented, while real-channel and clean-machine usability checks are still outstanding.
 

@@ -83,6 +83,8 @@ https://github.com/jwlai-cloud/ChatMade — currently private. Access for `testi
 
 **TODO: publicly visible YouTube URL.** No video is attached to the existing Devpost draft. Target 165 seconds; record actual Twitch interaction and readable Codex build/debug footage using [the shot list](docs/DEMO_SCRIPT.md). Do not substitute a slideshow or simulated chat for working-on-Twitch footage.
 
+Operator package: [complete capture/submission handoff](docs/VIDEO_HANDOFF.md) and [narration read](docs/VIDEO_NARRATION.md). A 42.53-second silent sample walkthrough is available locally; it is explicitly simulated and is not a final submission video. The automated live take authorized successfully but timed out at the chat-readiness check before recording. Requirements and deadline were rechecked through the Devpost plugin at 04:46 UTC on 2 November. No upload or final submission has occurred.
+
 ## Screenshot Shot List
 
 1. Real Twitch command beside host moderation queue, with matching contribution and channel.

@@ -6,7 +6,7 @@ Official requirement: under three minutes, publicly visible on YouTube, showing 
 
 `npm run video:sample` drives a disposable server through moderation, voting, approval, reveal, keyboard movement, three simulated participants' rescue, actual outcome and PNG export. `npm run video:live` waits for human Twitch authorization and chat login before creating recorded pages, then drives real chat commands with threshold 1. See README for dependencies. Raw page videos and beat markers remain available for editing; failed captures are labelled incomplete and refused by the renderer.
 
-Verified sample: `release/video/capture-sample-2026-11-02T04-12-37-074Z/walkthrough-1080p-silent.mp4`, 1920×1080, 42.533333 seconds. Full decode passed and nine sampled frames were visually inspected. The round ended CAUGHT after 19.45 game seconds with one rescue. Persistent captions identify sample mode and three simulated participants. This proves the capture pipeline, not Twitch integration. Live capture currently awaits human chat login.
+Verified sample: `release/video/capture-sample-2026-11-02T04-12-37-074Z/walkthrough-1080p-silent.mp4`, 1920×1080, 42.533333 seconds. Full decode passed and nine sampled frames were visually inspected. The round ended CAUGHT after 19.45 game seconds with one rescue. Persistent captions identify sample mode and three simulated participants. This proves the capture pipeline, not Twitch integration. The first automated live capture authorized successfully but timed out waiting for its chat readiness selector (`ChatBadgeCarousel`) before recording began. No live video was produced; the selector must be corrected before another take.
 
 ## Shot list and narration
 
