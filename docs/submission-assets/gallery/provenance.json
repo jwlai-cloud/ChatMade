@@ -1,0 +1,42 @@
+{
+  "walkthrough": "/private/tmp/claude-502/-Users-junwei-lai-Projects-Agent-ChatMade/d93dccab-fcca-4e0e-b539-1e178d537c17/scratchpad/capture/capture-twitch-2026-11-02T09-10-03-729Z/walkthrough-1080p-silent.mp4",
+  "result": "/private/tmp/claude-502/-Users-junwei-lai-Projects-Agent-ChatMade/d93dccab-fcca-4e0e-b539-1e178d537c17/scratchpad/capture/capture-twitch-2026-11-02T09-10-03-729Z/result-export.png",
+  "frameSeconds": {
+    "rescue": 49.7,
+    "approval": 40.3
+  },
+  "source": "/Users/junwei.lai/Projects/Agent/ChatMade/release/gallery-source/2026-11-02T10-34-57-760Z",
+  "notes": "Designed cover uses original public/creature.svg. Gallery frames are real captured UI with presentation headers; no synthetic gameplay. Result is from same one-account Twitch round.",
+  "files": [
+    {
+      "scene": "cover",
+      "file": "01-thumbnail.png",
+      "width": 1200,
+      "height": 800
+    },
+    {
+      "scene": "rescue",
+      "file": "02-live-rescue.png",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "scene": "approval",
+      "file": "03-host-approval.png",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "scene": "result",
+      "file": "04-live-result.png",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "scene": "architecture",
+      "file": "05-architecture.png",
+      "width": 1920,
+      "height": 1080
+    }
+  ]
+}

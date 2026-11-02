@@ -107,3 +107,7 @@ The user explicitly supplied Australia as country of residence and confirmed all
 ## 2 November 2026 — record build evidence segment
 
 At the user's request, recorded a separate 33.766667-second silent 1080p build-evidence clip. A clearly labelled local repository viewer shows documented Codex contribution, actual renderer and regression excerpts, then streams a fresh fixed-command npm test run started during recording. All 28 tests passed with zero failures. Initial take was retaken to remove clipped source; all three final scene screenshots were visually reviewed and full video decode passed. The viewer does not access or imitate the Codex application, which was previously denied to assistant control. Added reproducible capture script and combination/narration guidance. No Twitch credentials, existing host key, personal browser profile or private chat were read. Real Twitch video and final assembly remain pending.
+
+## 2 November 2026 — Devpost thumbnail and gallery assets
+
+At the user's request, prepared a 1200×800 cover and four 1920×1080 gallery PNGs. Cover uses the application's original SVG; gallery uses actual frames and exported result from the later completed one-account Twitch capture plus the delivered architecture. Added persistent one-account/threshold labels, captions, provenance and a reproduction script. All images were visually inspected and checked below the 5 MB upload limit. Files are ready for manual upload; no Devpost asset upload occurred in this step. Submission tag is unchanged.
