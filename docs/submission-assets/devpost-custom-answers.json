@@ -1,0 +1,52 @@
+{
+  "hackathon_subdomain": "twitchcon-codex",
+  "project_slug": "chatmate-lv56od",
+  "custom_answers": [
+    {
+      "submission_field_id": 29286,
+      "value": "Individual"
+    },
+    {
+      "submission_field_id": 29287,
+      "value": [
+        "Australia"
+      ]
+    },
+    {
+      "submission_field_id": 29288,
+      "value": "https://github.com/jwlai-cloud/ChatMade"
+    },
+    {
+      "submission_field_id": 29289,
+      "value": "01a16cd5-1329-7140-b20c-c69757f52492"
+    },
+    {
+      "submission_field_id": 29290,
+      "value": "I used OpenAI Codex in the main build chat to review scope, record decisions, implement the TypeScript/React/Canvas/Node.js application, write regression and integration tests, debug security and packaging issues, and drive a real Twitch smoke test. ChatMade uses Twitch Public-client device authorisation with `user:read:chat`, Twitch API token validation and EventSub WebSockets for `channel.chat.message`. Viewers' chat commands become moderated suggestions, votes and rescue inputs in a local server-authoritative game. A read-only broadcast URL is designed for OBS. The completed real-channel smoke test verified five accepted commands and one rescue; mocked tests cover broader auth/reconnect cases. Runtime artwork generation is not implemented, and repeated idle keepalive timeouts remain under investigation."
+    },
+    {
+      "submission_field_id": 29291,
+      "value": "The streamer runs ChatMade locally, connects their own Twitch account and adds the read-only broadcast URL to OBS. Viewers stay in Twitch chat: they propose a body, power and weakness, vote on approved recipes, then send `!help` to activate the selected weakness while the streamer dodges attacks with WASD or arrow keys. The host approves suggestions and the winning recipe before reveal. A round lasts up to 60 seconds with three hearts; selected contributors are credited and the result can be exported as a PNG. No viewer installation is needed. Three-viewer rescue is the default; a one-viewer setting supported our first live smoke test. OBS output and a three-viewer playtest still need validation."
+    },
+    {
+      "submission_field_id": 29292,
+      "value": "A lot"
+    },
+    {
+      "submission_field_id": 29293,
+      "value": "Very likely"
+    },
+    {
+      "submission_field_id": 29294,
+      "value": true
+    },
+    {
+      "submission_field_id": 29295,
+      "value": true
+    },
+    {
+      "submission_field_id": 29296,
+      "value": true
+    }
+  ]
+}

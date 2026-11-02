@@ -99,3 +99,7 @@ At the user's request, prepared VIDEO_HANDOFF.md and VIDEO_NARRATION.md: applica
 ## 2 November 2026 — save Devpost project details
 
 User explicitly requested filling the submission form. Saved title ChatMade, tagline, truthful project description, technology tags and judge links to existing project 1517312 using the Devpost connector. Update returned version 3; readback verified populated details. Devpost reports the project page as published, while the hackathon submitted timestamp remains null and video is absent. No final submission, country answer or eligibility declaration was sent. Custom answers remain local because this connector accepts those through the final submission operation. Saved a reproducible project-only payload in docs/submission-assets/devpost-project-draft.json. No application changes or test rerun.
+
+## 2 November 2026 — required personal form answers
+
+The user explicitly supplied Australia as country of residence and confirmed all three age/jurisdiction/nonemployee declarations after receiving their wording and the official rules link. Updated the local form draft and prepared all 11 custom answers in docs/submission-assets/devpost-custom-answers.json, using an array for the country field and booleans for declarations. No final submit call was made: video and judge access remain outstanding, and final submission authorization remains separate.

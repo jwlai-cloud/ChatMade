@@ -102,7 +102,7 @@ Operator package: [complete capture/submission handoff](docs/VIDEO_HANDOFF.md) a
 
 Local draft only. Existing Devpost project: `chatmate-lv56od` (ID 1517312), currently titled ChatMate, state `submission_draft`, no submitted timestamp or video as inspected on 2 November. Use ChatMade consistently when updating that draft; no duplicate project is needed. No Devpost fields were changed during this preparation.
 
-Blocking material: public YouTube demonstration, judge repository access, required unanswered personal fields and eligibility confirmations. Main technical risk: repeated idle keepalive timeouts. Three-viewer, controlled network interruption, actual OBS output and clean-machine onboarding remain unverified; these are product validation gates, not additional official deliverable fields.
+Blocking material: public YouTube demonstration, judge repository access, final form transmission and explicit authorization to submit. Main technical risk: repeated idle keepalive timeouts. Three-viewer, controlled network interruption, actual OBS output and clean-machine onboarding remain unverified; these are product validation gates, not additional official deliverable fields.
 
 ## Known Limitations
 
@@ -115,16 +115,16 @@ Live field IDs verified with the Devpost Hackathons plugin on 2 November 2026. T
 | Field ID | Official label | Prepared answer |
 | --- | --- | --- |
 | 29286 | Submitter Type | Individual — user confirmed |
-| 29287 | Submitter Country of Residence | TODO: user confirmation; do not infer from timezone |
+| 29287 | Submitter Country of Residence | Australia — user explicitly confirmed on 2 November |
 | 29288 | Provide a URL to your code repository on GitHub, GitLab or Bitbucket. | https://github.com/jwlai-cloud/ChatMade — verify judge access |
 | 29289 | Provide the Codex session ID for the thread where you built most of your project. | `01a16cd5-1329-7140-b20c-c69757f52492` — user confirmed `/status` and build chat on 2 November |
 | 29290 | Explain how your project meets the main technology requirement. | Copy answer below |
 | 29291 | Explain how streamers and their community on Twitch use your project. | Copy answer below |
 | 29292 | How much did this hackathon help you develop new skills or knowledge? | A lot — user supplied |
 | 29293 | How likely are you to use OpenAI Codex again, at work or in your personal projects? | Very likely — user supplied |
-| 29294 | Age of majority | TODO: user confirmation of exact declaration |
-| 29295 | Eligible jurisdiction | TODO: user confirmation of exact declaration |
-| 29296 | Not employee of the sponsors | TODO: user confirmation of exact declaration |
+| 29294 | Age of majority | Confirmed true — user explicitly confirmed on 2 November |
+| 29295 | Eligible jurisdiction | Confirmed true — user explicitly confirmed on 2 November |
+| 29296 | Not employee of the sponsors | Confirmed true — user explicitly confirmed on 2 November |
 
 ### Answer for 29290 — technology requirement
 
@@ -134,10 +134,10 @@ I used OpenAI Codex in the main build chat to review scope, record decisions, im
 
 The streamer runs ChatMade locally, connects their own Twitch account and adds the read-only broadcast URL to OBS. Viewers stay in Twitch chat: they propose a body, power and weakness, vote on approved recipes, then send `!help` to activate the selected weakness while the streamer dodges attacks with WASD or arrow keys. The host approves suggestions and the winning recipe before reveal. A round lasts up to 60 seconds with three hearts; selected contributors are credited and the result can be exported as a PNG. No viewer installation is needed. Three-viewer rescue is the default; a one-viewer setting supported our first live smoke test. OBS output and a three-viewer playtest still need validation.
 
-### Declarations awaiting the user's explicit confirmation
+### Declarations explicitly confirmed by the user on 2 November
 
 - 29294: “I, and, if applicable, all of my teammates, are at at least 18 or the age of majority where I reside, whichever is older.”
 - 29295: “I, and, if applicable, all of my teammates, are from an eligible jurisdiction to compete.”
 - 29296: “I, and, if applicable, all of my teammates, are not employees, representatives nor agents of the Promotion Entities of this hackathon.”
 
-Read the [official rules](https://twitchcon-codex.devpost.com/rules) and [Devpost terms](https://info.devpost.com/terms-of-service) before final submission. No declaration is checked and no agreement is inferred from preparing this draft.
+Read the [official rules](https://twitchcon-codex.devpost.com/rules) and [Devpost terms](https://info.devpost.com/terms-of-service) before final submission. The user explicitly confirmed all three declarations after being directed to the official rules. These answers are recorded locally; no final submission request has been sent.

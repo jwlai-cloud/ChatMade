@@ -174,8 +174,8 @@ Deliver to the owner:
 - [ ] Private repository judge access confirmed, or owner explicitly approves another visibility choice.
 - [ ] Description and custom answers copied from current root draft; project name reconciled.
 - [ ] Session ID copied exactly; Individual / A lot / Very likely match supplied answers.
-- [ ] Country of residence supplied by owner; do not infer from Perth timezone.
-- [ ] Owner confirms age, eligible jurisdiction, and nonemployee declarations after reviewing exact terms.
+- [x] Country of residence: Australia, explicitly supplied by owner on 2 November.
+- [x] Owner explicitly confirmed age, eligible jurisdiction and nonemployee declarations on 2 November after receiving the exact declarations and official rules link.
 - [ ] Owner authorizes final submission; verify returned submission status and timestamp afterward.
 
 Nothing in this document marks the project submitted. Do not substitute a prepared draft, an aggregate “submitted projects” list or a successful video export for the actual submission confirmation.
