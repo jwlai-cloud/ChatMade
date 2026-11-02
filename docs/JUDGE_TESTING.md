@@ -4,17 +4,20 @@ ChatMade is a local Twitch audience-participation game, not a hosted website or 
 
 Start with the sample round below: it needs no Twitch account or authorization. To test real Twitch, the host connects their channel once per app session and participants use their usual signed-in Twitch browser. Judges do not need the video capture scripts, a separate browser login, a bot account or their own Twitch developer application. The isolated Chrome login used by our automated recording tool is a recording prerequisite, not part of normal ChatMade setup.
 
+Run the application on **your own computer**. This project has no hosted app URL. `127.0.0.1:4317` means your computer after startup, not the submitter's server. No public tunnel is needed. The repository is public; the `submission` tag pins commit `04960dd` for reproducible judging. This guide on main includes later documentation corrections; the tag is intentionally unchanged.
+
 ## Install from source
 
 ```sh
 git clone https://github.com/jwlai-cloud/ChatMade.git
 cd ChatMade
+git checkout submission
 npm ci
 npm run build
 npm run launch
 ```
 
-The repository is private; access must first be arranged for the judging account. `launch` opens authenticated host controls. Keep Terminal running. Reopen controls via local `data/open-host.html`; do not share this private launcher or `data/host-key.txt`. Broadcast page: `http://127.0.0.1:4317/broadcast`. Keep the server on loopback; no tunnel is required.
+`launch` opens authenticated host controls automatically; no manual host-key entry is needed for the normal path. Keep Terminal running and complete the sample round below. No Twitch login, developer registration, paid API key or OBS installation is needed for sample testing. Reopen controls via local `data/open-host.html`; do not share this private launcher or `data/host-key.txt`. Broadcast page: `http://127.0.0.1:4317/broadcast`. Keep the server on loopback; no tunnel is required. If startup reports port 4317 is busy, stop the other ChatMade instance first. Do not run the video-capture scripts to test the submitted game.
 
 ## Full sample round, no Twitch login
 
@@ -43,6 +46,8 @@ Approve received suggestions, then Build recipes. Send `!vote 1` while voting is
 The application reads chat; it never posts commands for viewers. OAuth tokens remain in backend memory and restart requires reauthorisation. For actual stream output add the broadcast URL as an OBS Browser Source (1920 × 1080 suggested), while keeping host controls separate.
 
 ## Evidence and current limits
+
+The optional bundled-runtime preview currently exists as a local macOS Apple Silicon ZIP, not an attached public release download. Use source instructions above unless a verified release asset is supplied. Same-Mac fresh-source build was checked; another-machine graphical onboarding and native Windows/Linux packaging have not been validated.
 
 See [first live test](LIVE_TEST_2026-11-02.md). Real one-account delivery, vote, rescue, result and PNG passed. Repeated idle keepalive timeouts/recovery remain unresolved; controlled reconnect, three-viewer participation, OBS output, measured performance and clean-machine graphical onboarding are not yet verified. Same original fallback creature is used for all recipes.
 
