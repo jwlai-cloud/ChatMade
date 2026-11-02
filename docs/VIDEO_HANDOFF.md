@@ -2,6 +2,8 @@
 
 Prepared 2 November 2026 for the next operator or coding assistant. This is an execution brief, not evidence that the final video or submission exists. Read this file first, then DEMO_SCRIPT.md and VIDEO_NARRATION.md. Keep the main build session ID even if another assistant finishes the edit.
 
+Latest media update: [BUILD_EVIDENCE_CLIP.md](BUILD_EVIDENCE_CLIP.md) documents a completed 33.77-second silent build-evidence segment with actual source and a fresh 28-pass test run. Use it for the Codex portion; it is explicitly a repository viewer, not native Codex chat capture. Earlier statements below asking to capture the whole build segment are superseded by this artifact. Real Twitch footage and final assembly remain outstanding.
+
 ## 1. What the application does
 
 **ChatMade: chat builds the monster. The streamer survives it.**

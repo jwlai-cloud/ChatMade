@@ -103,3 +103,7 @@ User explicitly requested filling the submission form. Saved title ChatMade, tag
 ## 2 November 2026 — required personal form answers
 
 The user explicitly supplied Australia as country of residence and confirmed all three age/jurisdiction/nonemployee declarations after receiving their wording and the official rules link. Updated the local form draft and prepared all 11 custom answers in docs/submission-assets/devpost-custom-answers.json, using an array for the country field and booleans for declarations. No final submit call was made: video and judge access remain outstanding, and final submission authorization remains separate.
+
+## 2 November 2026 — record build evidence segment
+
+At the user's request, recorded a separate 33.766667-second silent 1080p build-evidence clip. A clearly labelled local repository viewer shows documented Codex contribution, actual renderer and regression excerpts, then streams a fresh fixed-command npm test run started during recording. All 28 tests passed with zero failures. Initial take was retaken to remove clipped source; all three final scene screenshots were visually reviewed and full video decode passed. The viewer does not access or imitate the Codex application, which was previously denied to assistant control. Added reproducible capture script and combination/narration guidance. No Twitch credentials, existing host key, personal browser profile or private chat were read. Real Twitch video and final assembly remain pending.

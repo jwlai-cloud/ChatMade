@@ -119,5 +119,6 @@ The edited walkthrough must still be combined with actual Codex build evidence a
 - [Submission checklist and working description](docs/SUBMISSION.md)
 - [Prepared Devpost copy](devpost-submission.md), [judge quick start](docs/JUDGE_TESTING.md), [review](docs/HACKATHON_REVIEW.md)
 - [Video capture and submission handoff](docs/VIDEO_HANDOFF.md), [165-second shot list](docs/DEMO_SCRIPT.md), [narration read](docs/VIDEO_NARRATION.md)
+- [Recorded Codex build evidence clip](docs/BUILD_EVIDENCE_CLIP.md) — actual repository source and fresh test run, with reproduction command.
 
 No paid generation calls or final hackathon submission have been performed by Codex. Main build session ID was confirmed by the user on 2 November. Before submission, resolve the review blockers, verify judge access and record the public Twitch/Codex video.

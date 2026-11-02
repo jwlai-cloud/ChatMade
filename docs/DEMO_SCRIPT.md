@@ -2,6 +2,8 @@
 
 Official requirement: under three minutes, publicly visible on YouTube, showing the project working on Twitch and how it was built with Codex. A 42.53-second silent sample walkthrough now exists locally; it is not the final submission video. Real Twitch recording, Codex build footage, narration and upload remain pending.
 
+Update: a separate **33.77-second Codex build evidence segment** is now recorded and verified; see [BUILD_EVIDENCE_CLIP.md](BUILD_EVIDENCE_CLIP.md). It shows a clearly labelled repository evidence viewer, actual renderer/regression source and a fresh 28-pass test run. It is not native Codex chat capture. Real Twitch footage, narration and final assembly/upload remain pending; this supersedes the earlier build-footage status above.
+
 ## Automated capture status — 2 November
 
 `npm run video:sample` drives a disposable server through moderation, voting, approval, reveal, keyboard movement, three simulated participants' rescue, actual outcome and PNG export. `npm run video:live` waits for human Twitch authorization and chat login before creating recorded pages, then drives real chat commands with threshold 1. See README for dependencies. Raw page videos and beat markers remain available for editing; failed captures are labelled incomplete and refused by the renderer.
